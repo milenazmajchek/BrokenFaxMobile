@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BrokenFaxMobile.Views.SettingsPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Frame CornerRadius="30" Margin="20,30,20,0" Padding="0">
+                <Button  x:Name= "logoutbtn" Text = "Logout" TextColor="Black" Command="{Binding LogoutCommand}" FontAttributes = "Bold" FontSize = "Medium" HorizontalOptions = "FillAndExpand" BackgroundColor = "Transparent"/>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

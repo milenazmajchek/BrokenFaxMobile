@@ -16,6 +16,7 @@
     </ContentPage.Resources>
 
     <Grid>
+        <!--
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -27,16 +28,20 @@
                 </ContentView>
             </StackLayout>
         </StackLayout>
-        <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label Text="Start developing now" FontSize="Title"/>
-                <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="0,0,0,0"/>
+        -->
+        <!--<ScrollView Grid.Row="1">-->
+        <ScrollView >
+                <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                <Label Text="How to play the game" FontSize="Title"/>
+                <ScrollView BackgroundColor="LightGray" VerticalOptions="FillAndExpand">
+                    <Label Text="{Binding HowToPlayText}" FontSize="16" Padding="0,0,0,0" />
+                </ScrollView>
                 <Label FontSize="16" Padding="0,24,0,0">
                     <Label.FormattedText>
                         <FormattedString>
                             <FormattedString.Spans>
                                 <Span Text="Learn more at "/>
-                                <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+                                <Span Text="http://brokenfax.azurewebsites.net/Info" FontAttributes="Bold"/>
                             </FormattedString.Spans>
                         </FormattedString>
                     </Label.FormattedText>

@@ -1,31 +1,30 @@
 ﻿using BrokenFaxMobile.Models;
 using BrokenFaxMobile.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BrokenFaxMobile.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class CompletedThreadsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private CompleteThreadData _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<CompleteThreadData> Items { get; }
         public Command LoadItemsCommand { get; }
-        public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<CompleteThreadData> ItemTapped { get; }
 
-        public ItemsViewModel()
+        public CompletedThreadsViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Title = "Completed Threads";
+            Items = new ObservableCollection<CompleteThreadData>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
-
-            AddItemCommand = new Command(OnAddItem);
+            ItemTapped = new Command<CompleteThreadData>(OnItemSelected);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -35,7 +34,7 @@ namespace BrokenFaxMobile.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStoreItem.GetItemsAsync(true);
+                var items = await DataStoreCompleted.GetItemsAsync(true);
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -57,7 +56,7 @@ namespace BrokenFaxMobile.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public CompleteThreadData SelectedItem
         {
             get => _selectedItem;
             set
@@ -67,18 +66,13 @@ namespace BrokenFaxMobile.ViewModels
             }
         }
 
-        private async void OnAddItem(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
-        }
-
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(CompleteThreadData item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(CompletedThreadDetailPage)}?{nameof(CompletedThreadDetailViewModel.CompletedThreadId)}={item.Id}");
         }
     }
 }

@@ -7,8 +7,30 @@
              x:Class="BrokenFaxMobile.Views.LoginPage"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-        </StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Row="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                <Frame CornerRadius="10" BackgroundColor="White" Margin="20,20,20,0" Padding="5">
+                    <Entry x:Name = "Email" TextColor="{StaticResource Primary}" Placeholder = "Email" Keyboard = "Email" Text = "{Binding LoginEmail}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                </Frame>
+                <Frame CornerRadius="10" BackgroundColor="White" Margin="20,10,20,0" Padding="5">
+                    <Entry x:Name = "Password" Placeholder = "Password"      
+                            IsPassword = "True"
+                            Text="{Binding LoginPassword}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+                </Frame>
+                <ActivityIndicator IsVisible="{Binding IsLoading}" IsRunning="{Binding IsLoading}" Color="{StaticResource Primary}" Scale="1"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Margin="0,60,0,0">
+                <Frame CornerRadius="30" Margin="20,30,20,0" Padding="0" BackgroundColor="{StaticResource Primary}">
+                    <Button  x:Name= "loginbtn" Text = "Login " TextColor="White" Command="{Binding LoginCommand}" FontAttributes = "Bold" FontSize = "Medium" HorizontalOptions = "FillAndExpand" BackgroundColor = "Transparent"/>
+                </Frame>
+                <Frame CornerRadius="30" Margin="20,10,20,20" Padding="0">
+                    <Button x:Name= "registerbtn" Text = "Register " TextColor="{StaticResource Primary}" Command="{Binding RegisterCommand}" FontAttributes = "Bold" FontSize = "Medium"  HorizontalOptions = "FillAndExpand" VerticalOptions="End" BackgroundColor = "Transparent" />
+                </Frame>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

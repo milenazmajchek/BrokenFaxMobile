@@ -13,8 +13,18 @@ namespace BrokenFaxMobile
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            DependencyService.Register<MockDataStoreActiveThreads>();
+            DependencyService.Register<MockDataStoreItem>();
+            DependencyService.Register<MockDataStoreCompleted>();
+            var isLoogged = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
+            if (isLoogged == "1")
+            {
+                MainPage = new AppShell();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
         }
 
         protected override void OnStart()

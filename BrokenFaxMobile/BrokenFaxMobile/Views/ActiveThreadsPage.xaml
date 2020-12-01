@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BrokenFaxMobile.Views.ActiveThreadsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:BrokenFaxMobile.ViewModels" 
+             xmlns:model="clr-namespace:BrokenFaxMobile.Models" >
+    
+    <RefreshView x:DataType="local:ActiveThreadsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+       <ListView x:Name="ItemsListView"
+                ItemsSource="{Binding ActiveThreads}">
+            <ListView.Header>
+                <Grid Margin="10,5,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.3*"/>
+                    </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="Group" 
+                               FontAttributes="Bold"
+                            Style="{DynamicResource CaptionStyle}" 
+                            FontSize="16" />
+                    <Label Grid.Column="1" Text="Creator" 
+                               FontAttributes="Bold"
+                            Style="{DynamicResource CaptionStyle}"
+                            FontSize="16" />
+                    <Label Grid.Column="2" Text="Next" 
+                               FontAttributes="Bold"
+                            Style="{DynamicResource CaptionStyle}"
+                            FontSize="16" />
+                    <Label Grid.Column="3" Text="Left" 
+                               FontAttributes="Bold"
+                            Style="{DynamicResource CaptionStyle}"
+                            FontSize="16" />
+                    </Grid>
+            </ListView.Header>
+           
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid x:DataType="local:ActiveFaxThreadViewData" Margin="10,5,10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                                <ColumnDefinition Width="0.2*"/>
+                                <ColumnDefinition Width="0.3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="{Binding GroupName}" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}" 
+                            FontSize="13" />
+                            <Label Grid.Column="1" Text="{Binding CreatorName}" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                            <Label Grid.Column="2" Text="{Binding NextName}" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                            <Label Grid.Column="3" Text="{Binding Remaining}" 
+                            LineBreakMode="WordWrap"
+                            Style="{DynamicResource ListItemDetailTextStyle}"
+                            FontSize="13" />
+                            <Frame Grid.Column="4" CornerRadius="90" BackgroundColor="{StaticResource Primary}" Margin="0,5,0,5" Padding="-10" IsVisible="{Binding IsUserNext}">
+                                <Button Text="{Binding NextText}" TextColor="White" FontAttributes="Bold" FontSize="Medium" IsVisible="{Binding IsUserNext}" Clicked="ProvideInputClicked"/>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </RefreshView>
+</ContentPage>

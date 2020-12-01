@@ -16,6 +16,19 @@ namespace BrokenFaxMobile.Views
         {
             InitializeComponent();
             this.BindingContext = new LoginViewModel();
+
+            Email.Completed += Email_Completed;
+            Password.Completed += Password_Completed;
+        }
+
+        private void Password_Completed(object sender, System.EventArgs e)
+        {
+            loginbtn.Command.Execute(loginbtn);
+        }
+
+        private void Email_Completed(object sender, System.EventArgs e)
+        {
+            Password.Focus();
         }
     }
 }
