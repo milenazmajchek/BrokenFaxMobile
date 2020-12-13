@@ -66,7 +66,7 @@ namespace BrokenFaxMobile.ViewModels
         private async void OnRegisterClicked(object obj)
         {
             Application.Current.MainPage = new AppShell();
-            await Shell.Current.GoToAsync($"{nameof(RegisterPage)}");
+            await Shell.Current.GoToAsync($"//RegisterPage");
         }
     }
 }

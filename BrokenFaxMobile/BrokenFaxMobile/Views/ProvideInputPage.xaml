@@ -4,12 +4,51 @@
              x:Class="BrokenFaxMobile.Views.ProvideInputPage"
              Title="{Binding Title}">
 
-    <StackLayout Spacing="20" Padding="15">
-            <StackLayout IsVisible="{Binding IsImage}">
-                <Label Text="IMAGE"/>
+    <StackLayout Spacing="20" Padding="15" VerticalOptions="FillAndExpand">
+        <Label Text="{Binding FromText}" FontSize = "Medium"  HorizontalOptions = "FillAndExpand" FontAttributes="Bold"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackLayout Grid.Row="0" x:Name="ProvidePictureLayout" IsVisible="{Binding IsTerm}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="Term:" FontSize = "Medium"  FontAttributes="Bold" HorizontalTextAlignment="Start" HorizontalOptions="StartAndExpand" VerticalTextAlignment="End"/>
+                    <Frame Grid.Column="1" CornerRadius="30" Margin="10,0,10,0" Padding="0" BackgroundColor="{StaticResource PrimaryLighter}" VerticalOptions="End">
+                        <Label Text="{Binding OldContent}" FontSize = "Medium"  FontAttributes="Bold"  HorizontalTextAlignment="Start" HorizontalOptions="CenterAndExpand" TextColor="{StaticResource Primary}"/>
+                    </Frame>
+                </Grid>
+
+                <Grid x:Name="PictureLayout" Margin="0,-10, 0, 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <ActivityIndicator x:Name="uploadIndicator" IsVisible="False" IsRunning="False" Color="{StaticResource Primary}" />
+                    <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,20,20,0" Padding="0"  Grid.Column="0" Grid.Row="0">
+                        <Button x:Name="btnSelectPic" Text="Select picture" Clicked="btnSelectPic_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White" />
+                    </Frame>
+                    <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,20,20,0" Padding="0" Grid.Row="0" Grid.Column="1" >
+                        <Button x:Name="btnTakePic" Text="Take picture" Clicked="btnTakePic_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White" />
+                    </Frame>
+                </Grid>
+                <Image x:Name="imageViewProvidePic" HeightRequest="300" WidthRequest="400" VerticalOptions="CenterAndExpand" Margin="0,10,0,-10"/>                
             </StackLayout>
-            <StackLayout IsVisible="{Binding IsTerm}">
-                <Label Text="TERM"/>
+
+            <StackLayout Grid.Row="1" x:Name="ProvideTermLayout" IsVisible="{Binding IsPicture}">
+                <Image x:Name="imageView" HeightRequest="300" WidthRequest="400" Source="{Binding OldContent}"/>
+                <Entry x:Name="ProvidedTerm" Placeholder="Provide term" Text="{Binding ProvidedTerm}" Margin="20,10,20,20"/>
             </StackLayout>
-        </StackLayout>
+        </Grid>
+            <Frame CornerRadius="30" Margin="20,0,20,10" Padding="0" BackgroundColor="{StaticResource Primary}" VerticalOptions="End">
+                <Button x:Name= "submitbtn" Text = "Submit " TextColor="White" Command="{Binding SubmitCommand}" FontAttributes = "Bold" FontSize = "Medium"  HorizontalOptions = "FillAndExpand" VerticalOptions="End" BackgroundColor = "Transparent" />
+            </Frame>
+    </StackLayout>
 </ContentPage>

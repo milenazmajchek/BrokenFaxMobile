@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BrokenFaxMobile.Views.GroupsPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:BrokenFaxMobile.ViewModels"  
+             xmlns:model="clr-namespace:BrokenFaxMobile.Models">
+
+
+    <RefreshView x:DataType="local:GroupsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <ListView x:Name="ItemsListView"
+                ItemsSource="{Binding Groups}"
+                SelectionMode="None">
+            
+            <ListView.Header>
+                <Grid Margin="10,5,10,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Entry x:Name = "NewGroup" Placeholder = "New Group Name"
+                            Text="{Binding NewGroupName}" BackgroundColor="Transparent" Grid.Column="0"/>
+                    <Frame Grid.Column="1" CornerRadius="90" BackgroundColor="{StaticResource Primary}" Margin="0,5,0,5" Padding="-5,-10,-5,-10">
+                        <Button Text="Create" TextColor="White" FontAttributes="Bold" FontSize="Medium" Command="{Binding CreateGroupCommand}" />
+                    </Frame>
+                </Grid>
+            </ListView.Header>
+            
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid x:DataType="local:GroupsViewData"  Margin="10,5,10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding GroupName}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                            <Frame Grid.Column="4" CornerRadius="90" BackgroundColor="{StaticResource Primary}" Margin="0,5,0,5" Padding="-10">
+                                <Button Text="{Binding CommandText}" TextColor="White" FontAttributes="Bold" FontSize="Medium" Clicked="ChangeMembershipClicked"/>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </RefreshView>
+</ContentPage>

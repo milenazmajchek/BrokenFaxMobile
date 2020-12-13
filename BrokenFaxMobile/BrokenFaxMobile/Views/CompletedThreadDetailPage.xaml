@@ -6,7 +6,7 @@
 
     <StackLayout Spacing="20" Padding="15">
         <Label Text="Creator:" FontSize="Medium" />
-        <Label Text="{Binding Creator}" FontSize="Small"/>
+        <Label Text="{Binding CreatorName}" FontSize="Small"/>
         <Label Text="Group Name:" FontSize="Medium" />
         <Label Text="{Binding GroupName}" FontSize="Small"/>
     </StackLayout>

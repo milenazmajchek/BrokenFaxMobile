@@ -1,9 +1,11 @@
-﻿using BrokenFaxMobile.Services;
+﻿using BrokenFaxMobile.Models;
+using BrokenFaxMobile.Services;
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BrokenFaxMobile.ViewModels
@@ -16,6 +18,16 @@ namespace BrokenFaxMobile.ViewModels
         private bool isTerm;
         private string oldContent;
         private string from;
+        private string fromText;
+
+        // provided values
+        private string providedTerm;
+
+        public ProvideInputViewModel()
+        {
+            Title = "Provide Input";
+            SubmitCommand = new Command(OnSubmitClicked);
+        }
 
         public string ActiveThreadId
         {
@@ -53,22 +65,49 @@ namespace BrokenFaxMobile.ViewModels
             set => SetProperty(ref from, value);
         }
 
+        public string ProvidedTerm
+        {
+            get => providedTerm;
+            set => SetProperty(ref providedTerm, value);
+        }
+
+        public string FromText
+        {
+            get => fromText;
+            set => SetProperty(ref fromText, value);
+        }
+
+        public Command SubmitCommand { get; }
+
         public async void LoadActiveThreadId(string id)
         {
             try
             {
-                string token = "";
                 /*var newUserInput = await WebApiHelper.GetLastThreadLinkAsync(token, id);*/
                 var activeThread = await DataStore.GetItemAsync(id);
-                isPicture = activeThread.Remaining % 2 == 0;
-                isTerm = !isPicture;
-                oldContent = activeThread.CreatorName;
-                from = activeThread.GroupName;
+
+                IsPicture = (activeThread.Length - activeThread.Remaining) % 2 == 0;
+                IsTerm = !isPicture;
+                var userInput = new NewUserInput();
+                userInput.UserName = "Zika";
+                if (IsPicture)
+                    userInput.Content = "https://brokenfax.blob.core.windows.net/images/009bfac1-e723-483d-a879-18d398ccce28.jpg";
+                else
+                    userInput.Content = "Linija";
+
+                OldContent = userInput.Content;
+                From = userInput.UserName;
+                FromText = $"From: {From}";
             }
             catch (Exception)
             {
                 Debug.WriteLine("Failed to Active thread");
             }
+        }
+
+        private async void OnSubmitClicked()
+        {
+            await Shell.Current.GoToAsync($"//main");
         }
     }
 }
