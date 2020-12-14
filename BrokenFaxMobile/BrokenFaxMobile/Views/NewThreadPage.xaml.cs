@@ -47,25 +47,41 @@ namespace BrokenFaxMobile.Views
                     return;
 
                 imageView.Source = ImageSource.FromStream(() => mediaFile.GetStream());
+                viewmodel.MissingImage = false;
             }
         }
 
         //Upload picture button    
         private async void btnUpload_Clicked(object sender, EventArgs e)
         {
+            var canSubmit = true;
+            if (string.IsNullOrWhiteSpace(viewmodel.NewTerm))
+            {
+                viewmodel.MissingTerm = true;
+                canSubmit = false;
+            }
+
+            if (viewmodel.SelectedGroup == null)
+            {
+                viewmodel.MissingGroup = true;
+                canSubmit = false;
+            }
+
             if (mediaFile == null)
             {
-                await DisplayAlert("Error", "There was an error when trying to get your image.", "OK");
+                viewmodel.MissingImage = true;
+                canSubmit = false;
+            }
+
+            if (!canSubmit)
                 return;
-            }
-            else
-            {
-                var imageUri = await UploadImage(mediaFile.GetStream());
-                await WebApiHelper.StartFaxThreadAsync("token", viewmodel.SelectedGroup.Id, viewmodel.NewTerm, imageUri);
-                imageView.Source = null;
-                viewmodel.NewTerm = string.Empty;
-                await DisplayAlert("Success!", "New thread is created!", "OK");
-            }
+
+            var imageUri = await UploadImage(mediaFile.GetStream());
+            await WebApiHelper.StartFaxThreadAsync("token", viewmodel.SelectedGroup.Id, viewmodel.NewTerm, imageUri);
+            imageView.Source = null;
+            viewmodel.NewTerm = string.Empty;
+            viewmodel.SelectedGroup = null;
+            await DisplayAlert("Success!", "New thread is created!", "OK");
         }
 
         //Take picture from camera    
@@ -92,6 +108,7 @@ namespace BrokenFaxMobile.Views
                 {
                     PhotoSize = PhotoSize.Medium
                 };
+                viewmodel.MissingImage = false;
             }
         }
 

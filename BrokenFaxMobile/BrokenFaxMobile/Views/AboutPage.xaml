@@ -19,17 +19,17 @@
         <Label Text="How to play the game" FontSize="Title" HorizontalTextAlignment="Center" TextColor="{StaticResource Primary}" FontAttributes="Bold"/>
         <ScrollView BackgroundColor="{StaticResource PrimaryLighter}" VerticalOptions="FillAndExpand">
             <Label Text="{Binding HowToPlayText}" FontSize="Medium" Padding="0,0,0,0" HorizontalTextAlignment="Start"/>
-            </ScrollView>
-            <Label FontSize="16" Padding="0,24,0,0">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <FormattedString.Spans>
-                            <Span Text="Learn more at "/>
-                            <Span Text="http://brokenfax.azurewebsites.net/Info" FontAttributes="Bold"/>
-                        </FormattedString.Spans>
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+        </ScrollView>
+        <Label FontSize="16" Padding="0,24,0,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <FormattedString.Spans>
+                        <Span Text="Learn more at "/>
+                        <Span Text="http://brokenfax.azurewebsites.net/Info" FontAttributes="Bold"/>
+                    </FormattedString.Spans>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
         <Frame BackgroundColor="{StaticResource Primary}" Margin="20,10,20,0" CornerRadius="30" Padding="0">
             <Button Text="Learn more"
                         Command="{Binding OpenWebCommand}"

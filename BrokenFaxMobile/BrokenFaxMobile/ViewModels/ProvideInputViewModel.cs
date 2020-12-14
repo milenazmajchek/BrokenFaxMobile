@@ -15,6 +15,8 @@ namespace BrokenFaxMobile.ViewModels
         private string oldContent;
         private string from;
         private string fromText;
+        private bool missingTerm;
+        private bool missingImage;
 
         // provided values
         private string providedTerm;
@@ -22,7 +24,6 @@ namespace BrokenFaxMobile.ViewModels
         public ProvideInputViewModel()
         {
             Title = "Provide Input";
-            SubmitCommand = new Command(OnSubmitClicked);
         }
 
         public Command SubmitCommand { get; }
@@ -63,8 +64,26 @@ namespace BrokenFaxMobile.ViewModels
         public string ProvidedTerm
         {
             get => providedTerm;
-            set => SetProperty(ref providedTerm, value);
+            set
+            {
+                SetProperty(ref providedTerm, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                    MissingTerm = false;
+            }
         }
+
+        public bool MissingTerm
+        {
+            get => missingTerm;
+            set => SetProperty(ref missingTerm, value);
+        }
+
+        public bool MissingImage
+        {
+            get => missingImage;
+            set => SetProperty(ref missingImage, value);
+        }
+
 
         public string FromText
         {
@@ -84,9 +103,9 @@ namespace BrokenFaxMobile.ViewModels
                 var userInput = new NewUserInput();
                 userInput.UserName = "Zika";
                 if (IsPicture)
-                    userInput.Content = "https://brokenfax.blob.core.windows.net/images/009bfac1-e723-483d-a879-18d398ccce28.jpg";
-                else
                     userInput.Content = "Linija";
+                else
+                    userInput.Content = "https://brokenfax.blob.core.windows.net/images/009bfac1-e723-483d-a879-18d398ccce28.jpg";
 
                 OldContent = userInput.Content;
                 From = userInput.UserName;
@@ -96,11 +115,6 @@ namespace BrokenFaxMobile.ViewModels
             {
                 Debug.WriteLine("Failed to Active thread");
             }
-        }
-
-        private async void OnSubmitClicked()
-        {
-            await Shell.Current.GoToAsync($"//main");
         }
     }
 }

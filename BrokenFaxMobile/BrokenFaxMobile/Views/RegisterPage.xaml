@@ -7,20 +7,26 @@
         <StackLayout>
             <Label Text="CREATE ACCOUNT" HorizontalOptions="CenterAndExpand" TextColor="{StaticResource Primary}" FontSize="Title" FontAttributes="Bold"  Padding="20" Margin="20"/>
             
-                <Frame CornerRadius="10" BackgroundColor="White" Margin="20,20,20,0" Padding="5">
-                    <Entry x:Name = "Email" TextColor="{StaticResource Primary}" Placeholder = "Email" Keyboard = "Email" Text = "{Binding RegisterEmail}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
-                </Frame>
-                <Frame CornerRadius="10" BackgroundColor="White" Margin="20,20,20,0" Padding="5">
-                    <Entry x:Name = "Username" TextColor="{StaticResource Primary}" Placeholder = "Username" Keyboard = "Email" Text = "{Binding RegisterUsername}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
-                </Frame>
-                <Frame CornerRadius="10" BackgroundColor="White" Margin="20,10,20,0" Padding="5">
-                        <Entry x:Name = "Password" Placeholder = "Password"      
-                            IsPassword = "True"
-                            Text="{Binding RegisterPassword}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
-                </Frame>
-                <Frame CornerRadius="30" Margin="20,10,20,20" Padding="0">
-                        <Button x:Name= "registerbtn" Text = "Register " TextColor="{StaticResource Primary}" Command="{Binding RegisterCommand}" FontAttributes = "Bold" FontSize = "Medium"  HorizontalOptions = "FillAndExpand" VerticalOptions="End" BackgroundColor = "Transparent" />
-                </Frame>
+            <Frame CornerRadius="10" BackgroundColor="White" Margin="20,20,20,0" Padding="5">
+                <Entry x:Name = "Email" TextColor="{StaticResource Primary}" Placeholder = "Email" Keyboard = "Email" Text = "{Binding RegisterEmail}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+            </Frame>
+            <Label Text="This field is required!" TextColor="Red" IsVisible="{Binding MissingEmail}" HorizontalOptions="Center"/>
+            
+            <Frame CornerRadius="10" BackgroundColor="White" Margin="20,20,20,0" Padding="5">
+                <Entry x:Name = "Username" TextColor="{StaticResource Primary}" Placeholder = "Username" Keyboard = "Email" Text = "{Binding RegisterUsername}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+            </Frame>
+            <Label Text="This field is required!" TextColor="Red" IsVisible="{Binding MissingUsername}" HorizontalOptions="Center"/>
+            
+            <Frame CornerRadius="10" BackgroundColor="White" Margin="20,20,20,0" Padding="5">
+                <Entry x:Name = "Password" Placeholder = "Password"      
+                        IsPassword = "True"
+                        Text="{Binding RegisterPassword}" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
+            </Frame>
+            <Label Text="This field is required!" TextColor="Red" IsVisible="{Binding MissingPassword}" HorizontalOptions="Center"/>
+
+            <Frame CornerRadius="30" Margin="20,10,20,20" Padding="0" BackgroundColor="{StaticResource Primary}" >
+                 <Button x:Name= "registerbtn" Text = "Register " TextColor="White" Command="{Binding RegisterCommand}" FontAttributes = "Bold" FontSize = "Medium"  HorizontalOptions = "FillAndExpand" VerticalOptions="End" BackgroundColor = "Transparent" />
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

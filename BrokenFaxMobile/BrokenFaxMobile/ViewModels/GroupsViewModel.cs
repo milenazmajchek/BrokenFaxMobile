@@ -12,6 +12,7 @@ namespace BrokenFaxMobile.ViewModels
     public class GroupsViewModel : BaseViewModel
     {
         private string newGroupName;
+        private bool missingGroupName;
 
         public GroupsViewModel()
         {
@@ -37,7 +38,18 @@ namespace BrokenFaxMobile.ViewModels
         public string NewGroupName
         {
             get => newGroupName;
-            set => SetProperty(ref newGroupName, value);
+            set 
+            {
+                SetProperty(ref newGroupName, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                    MissingGroupName = false;
+            } 
+        }
+
+        public bool MissingGroupName
+        {
+            get => missingGroupName;
+            set => SetProperty(ref missingGroupName, value);
         }
 
         public void OnAppearing()
@@ -79,7 +91,10 @@ namespace BrokenFaxMobile.ViewModels
         private async Task OnCreateGroup()
         {
             if (string.IsNullOrWhiteSpace(NewGroupName))
+            {
+                MissingGroupName = true;
                 return;
+            }
 
             await WebApiHelper.AddGroupAsync("token", NewGroupName);
         }

@@ -5,28 +5,38 @@
              xmlns:local="clr-namespace:BrokenFaxMobile.Views"
              Title="New Thread">
     <ContentPage.Content>
-        <StackLayout Padding="0,0,0,5">
-            <Picker Title="Group" ItemsSource="{Binding Groups}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedGroup, Mode=TwoWay}" />
-            <Editor Placeholder="New term" Text = "{Binding NewTerm}"/>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <ActivityIndicator x:Name="uploadIndicator" IsVisible="False" IsRunning="False" Color="{StaticResource Primary}" />
-                <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,20,20,0" Padding="0"  Grid.Column="0" Grid.Row="0">
-                    <Button x:Name="btnSelectPic" Text="Select picture" Clicked="btnSelectPic_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White" />
-                </Frame>
-                <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,20,20,0" Padding="0" Grid.Row="0" Grid.Column="1" >
-                    <Button x:Name="btnTakePic" Text="Take picture" Clicked="btnTakePic_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White" />
-                </Frame>
-            </Grid>
-            <Image x:Name="imageView" HeightRequest="300" WidthRequest="400" />
-            <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,20,20,0" Padding="0">
-                <Button Text="New thread" Clicked="btnUpload_Clicked" x:Name="btnUpload" BackgroundColor="{StaticResource Primary}" TextColor="White" />
-            </Frame>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="0,0,0,5">
+                <Picker Title="Group" ItemsSource="{Binding Groups}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedGroup, Mode=TwoWay}" />
+                <Label Text="This field is required!" TextColor="Red" IsVisible="{Binding MissingGroup}" HorizontalOptions="Center"/>
+            
+                <Editor Placeholder="New term" Text = "{Binding NewTerm}"/>
+                <Label Text="This field is required!" TextColor="Red" IsVisible="{Binding MissingTerm}" HorizontalOptions="Center"/>
+            
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                    <ActivityIndicator x:Name="uploadIndicator" IsVisible="False" IsRunning="False" Color="{StaticResource Primary}" />
+                    <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,20,20,0" Padding="0"  Grid.Column="0" Grid.Row="0">
+                        <Button x:Name="btnSelectPic" Text="Select picture" Clicked="btnSelectPic_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White" />
+                    </Frame>
+                    <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,20,20,0" Padding="0" Grid.Row="0" Grid.Column="1" >
+                        <Button x:Name="btnTakePic" Text="Take picture" Clicked="btnTakePic_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White" />
+                    </Frame>
+                    <Label Text="Image is required!" TextColor="Red" Grid.Row="1" HorizontalOptions="Center" Grid.ColumnSpan="2" IsVisible="{Binding MissingImage}"/>
+                </Grid>
+
+                <Image x:Name="imageView" HeightRequest="300" WidthRequest="400" Margin="0,5,0,0"/>
+            
+                 <Frame CornerRadius="30" BackgroundColor="{StaticResource Primary}" Margin="20,5,20,0" Padding="0">
+                     <Button Text="New thread" Clicked="btnUpload_Clicked" x:Name="btnUpload" BackgroundColor="{StaticResource Primary}" TextColor="White" />
+                 </Frame>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

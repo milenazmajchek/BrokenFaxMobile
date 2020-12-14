@@ -8,12 +8,15 @@ namespace BrokenFaxMobile.ViewModels
         private string email;
         private string password;
         private bool isLoading;
+        private bool missingEmail;
+        private bool missingPassword;
 
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
             RegisterCommand = new Command(OnRegisterClicked);
         }
+
         public Command LoginCommand { get; }
 
         public Command RegisterCommand { get; }
@@ -21,13 +24,35 @@ namespace BrokenFaxMobile.ViewModels
         public string LoginEmail
         {
             get => email;
-            set => SetProperty(ref email, value);
+            set
+            {
+                SetProperty(ref email, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                    MissingEmail = false;
+            }
         }
 
         public string LoginPassword
         {
             get => password;
-            set => SetProperty(ref password, value);
+            set
+            {
+                SetProperty(ref password, value);
+                if (!string.IsNullOrWhiteSpace(value))
+                    MissingPassword = false;
+            }
+        }
+
+        public bool MissingEmail
+        {
+            get => missingEmail;
+            set => SetProperty(ref missingEmail, value);
+        }
+
+        public bool MissingPassword
+        {
+            get => missingPassword;
+            set => SetProperty(ref missingPassword, value);
         }
 
         public bool IsLoading
@@ -44,6 +69,22 @@ namespace BrokenFaxMobile.ViewModels
 
         private async void OnLoginClicked(object obj)
         {
+            var canLogin = true;
+            if (string.IsNullOrWhiteSpace(LoginEmail))
+            {
+                canLogin = false;
+                MissingEmail = true;
+            }
+
+            if(string.IsNullOrWhiteSpace(LoginPassword))
+            {
+                canLogin = false;
+                MissingPassword = true;
+            }
+
+            if (!canLogin)
+                return;
+
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
             Application.Current.MainPage = new AppShell();
