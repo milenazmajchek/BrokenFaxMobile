@@ -11,8 +11,7 @@ namespace BrokenFaxMobile
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+
             Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute(nameof(ProvideInputPage), typeof(ProvideInputPage));
             Routing.RegisterRoute(nameof(CompletedThreadDetailPage), typeof(CompletedThreadDetailPage));

@@ -1,11 +1,10 @@
 ﻿using BrokenFaxMobile.Models;
 using BrokenFaxMobile.Services;
 using BrokenFaxMobile.Views;
+
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -13,18 +12,20 @@ namespace BrokenFaxMobile.ViewModels
 {
     public class ActiveThreadsViewModel : BaseViewModel
     {
-        public ObservableCollection<ActiveFaxThreadViewData> ActiveThreads { get; }
-        public Command LoadItemsCommand { get; }
-        public Command<ActiveFaxThreadViewData> ProvideInputCmd 
-        {
-            get => new Command<ActiveFaxThreadViewData>((data) => OnProvideInputCmd(data));
-        }
-
         public ActiveThreadsViewModel()
         {
             Title = "Active Threads";
             ActiveThreads = new ObservableCollection<ActiveFaxThreadViewData>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+        }
+
+        public ObservableCollection<ActiveFaxThreadViewData> ActiveThreads { get; }
+
+        public Command LoadItemsCommand { get; }
+
+        public Command<ActiveFaxThreadViewData> ProvideInputCmd
+        {
+            get => new Command<ActiveFaxThreadViewData>((data) => OnProvideInputCmd(data));
         }
 
         public void OnAppearing()
@@ -63,8 +64,6 @@ namespace BrokenFaxMobile.ViewModels
 
     public class ActiveFaxThreadViewData : ActiveFaxThreadData
     {
-        public string NextText { get; }
-        public bool IsUserNext { get; }
         public ActiveFaxThreadViewData(ActiveFaxThreadData origin)
         {
             Id = origin.Id;
@@ -75,5 +74,8 @@ namespace BrokenFaxMobile.ViewModels
             NextName = origin.NextName;
             Remaining = origin.Remaining;
         }
+
+        public string NextText { get; }
+        public bool IsUserNext { get; }
     }
 }

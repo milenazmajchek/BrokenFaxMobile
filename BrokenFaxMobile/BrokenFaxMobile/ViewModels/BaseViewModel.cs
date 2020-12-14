@@ -10,7 +10,6 @@ namespace BrokenFaxMobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Item> DataStoreItem => DependencyService.Get<IDataStore<Item>>();
         public IDataStore<ActiveFaxThreadData> DataStore => DependencyService.Get<IDataStore<ActiveFaxThreadData>>();
         public IDataStore<CompleteThreadData> DataStoreCompleted => DependencyService.Get<IDataStore<CompleteThreadData>>();
 

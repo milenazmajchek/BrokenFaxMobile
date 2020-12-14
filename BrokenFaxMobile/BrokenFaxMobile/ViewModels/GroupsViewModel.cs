@@ -1,5 +1,6 @@
 ﻿using BrokenFaxMobile.Models;
 using BrokenFaxMobile.Services;
+
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -12,10 +13,22 @@ namespace BrokenFaxMobile.ViewModels
     {
         private string newGroupName;
 
+        public GroupsViewModel()
+        {
+            Title = "Groups";
+            Groups = new ObservableCollection<GroupsViewData>();
+            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            CreateGroupCommand = new Command(async () => await OnCreateGroup());
+        }
+
         public ObservableCollection<GroupsViewData> Groups { get; }
+
         public Command LoadItemsCommand { get; }
+
         public Command AddItemCommand { get; }
+
         public Command CreateGroupCommand { get; }
+
         public Command<GroupsViewData> ChangeMembershipCmd
         {
             get => new Command<GroupsViewData>((data) => OnChangeMembership(data));
@@ -23,19 +36,8 @@ namespace BrokenFaxMobile.ViewModels
 
         public string NewGroupName
         {
-            get { return newGroupName; }
-            set
-            {
-                SetProperty(ref newGroupName, value);
-            }
-        }
-
-        public GroupsViewModel()
-        {
-            Title = "Groups";
-            Groups = new ObservableCollection<GroupsViewData>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            CreateGroupCommand = new Command(async () => await OnCreateGroup());
+            get => newGroupName;
+            set => SetProperty(ref newGroupName, value);
         }
 
         public void OnAppearing()
@@ -46,13 +48,9 @@ namespace BrokenFaxMobile.ViewModels
         private async void OnChangeMembership(GroupsViewData data)
         {
             if (data.IsMember)
-            {
                 await WebApiHelper.RemoveGroupMembershipAsync("temp", data.GroupId);
-            }
             else
-            {
                 await WebApiHelper.AddGroupMembershipAsync("temp", data.GroupId);
-            }
         }
 
         private async Task ExecuteLoadItemsCommand()

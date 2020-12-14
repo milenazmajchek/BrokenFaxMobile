@@ -12,11 +12,7 @@ namespace BrokenFaxMobile.ViewModels
 {
     public class CompletedThreadsViewModel : BaseViewModel
     {
-        private CompleteThreadData _selectedItem;
-
-        public ObservableCollection<CompleteThreadData> Items { get; }
-        public Command LoadItemsCommand { get; }
-        public Command<CompleteThreadData> ItemTapped { get; }
+        private CompleteThreadData selectedItem;
 
         public CompletedThreadsViewModel()
         {
@@ -25,6 +21,20 @@ namespace BrokenFaxMobile.ViewModels
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             ItemTapped = new Command<CompleteThreadData>(OnItemSelected);
+        }
+
+        public ObservableCollection<CompleteThreadData> Items { get; }
+        public Command LoadItemsCommand { get; }
+        public Command<CompleteThreadData> ItemTapped { get; }
+
+        public CompleteThreadData SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                SetProperty(ref selectedItem, value);
+                OnItemSelected(value);
+            }
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -56,22 +66,11 @@ namespace BrokenFaxMobile.ViewModels
             SelectedItem = null;
         }
 
-        public CompleteThreadData SelectedItem
-        {
-            get => _selectedItem;
-            set
-            {
-                SetProperty(ref _selectedItem, value);
-                OnItemSelected(value);
-            }
-        }
-
         async void OnItemSelected(CompleteThreadData item)
         {
             if (item == null)
                 return;
 
-            // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(CompletedThreadDetailPage)}?{nameof(CompletedThreadDetailViewModel.CompletedThreadId)}={item.Id}");
         }
     }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using Xamarin.Forms;
 
 namespace BrokenFaxMobile.ViewModels
@@ -36,16 +34,14 @@ namespace BrokenFaxMobile.ViewModels
 
         public string CompletedThreadId
         {
-            get
-            {
-                return itemId;
-            }
+            get => itemId;
             set
             {
                 itemId = value;
                 LoadCompletedThread(value);
             }
         }
+
         public async void LoadCompletedThread(string itemId)
         {
             try

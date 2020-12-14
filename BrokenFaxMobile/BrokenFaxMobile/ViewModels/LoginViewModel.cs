@@ -1,8 +1,4 @@
-﻿using BrokenFaxMobile.Views;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace BrokenFaxMobile.ViewModels
@@ -10,48 +6,39 @@ namespace BrokenFaxMobile.ViewModels
     public class LoginViewModel : BaseViewModel, INotifyPropertyChanged
     {
         private string email;
-
-        public string LoginEmail
-        {
-            get { return email; }
-            set
-            {
-                email = value;
-                SetProperty(ref email, value);
-            }
-        }
-
         private string password;
-
-        public string LoginPassword
-        {
-            get { return password; }
-            set
-            {
-                password = value;
-                SetProperty(ref password, value);
-            }
-        }
-
-        public Command LoginCommand { get; }
-        public Command RegisterCommand { get; }
+        private bool isLoading;
 
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
             RegisterCommand = new Command(OnRegisterClicked);
         }
+        public Command LoginCommand { get; }
 
-        private bool _isLoading;
+        public Command RegisterCommand { get; }
+
+        public string LoginEmail
+        {
+            get => email;
+            set => SetProperty(ref email, value);
+        }
+
+        public string LoginPassword
+        {
+            get => password;
+            set => SetProperty(ref password, value);
+        }
+
         public bool IsLoading
         {
-            get { return _isLoading; }
+            get => isLoading;
             set
             {
-                if (_isLoading == value)
+                if (isLoading == value)
                     return;
-                _isLoading = value;
-                SetProperty(ref _isLoading, value);
+                isLoading = value;
+                SetProperty(ref isLoading, value);
             }
         }
 

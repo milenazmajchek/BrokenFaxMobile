@@ -1,12 +1,11 @@
 ﻿using BrokenFaxMobile.Services;
 using BrokenFaxMobile.ViewModels;
+
 using Plugin.Media;
 using Plugin.Media.Abstractions;
+
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;

@@ -1,10 +1,7 @@
 ﻿using BrokenFaxMobile.Models;
 using BrokenFaxMobile.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace BrokenFaxMobile.Views
 {

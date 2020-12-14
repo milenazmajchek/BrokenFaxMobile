@@ -1,8 +1,7 @@
 ﻿using BrokenFaxMobile.Services;
 using BrokenFaxMobile.Views;
-using System;
+
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace BrokenFaxMobile
 {
@@ -14,7 +13,6 @@ namespace BrokenFaxMobile
             InitializeComponent();
 
             DependencyService.Register<MockDataStoreActiveThreads>();
-            DependencyService.Register<MockDataStoreItem>();
             DependencyService.Register<MockDataStoreCompleted>();
             var isLoogged = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
             if (isLoogged == "1")

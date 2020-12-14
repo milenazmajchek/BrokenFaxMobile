@@ -1,11 +1,7 @@
 ﻿using BrokenFaxMobile.Models;
-using BrokenFaxMobile.Services;
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace BrokenFaxMobile.ViewModels
@@ -29,12 +25,11 @@ namespace BrokenFaxMobile.ViewModels
             SubmitCommand = new Command(OnSubmitClicked);
         }
 
+        public Command SubmitCommand { get; }
+
         public string ActiveThreadId
         {
-            get
-            {
-                return activeThreadId;
-            }
+            get => activeThreadId;
             set
             {
                 activeThreadId = value;
@@ -76,8 +71,6 @@ namespace BrokenFaxMobile.ViewModels
             get => fromText;
             set => SetProperty(ref fromText, value);
         }
-
-        public Command SubmitCommand { get; }
 
         public async void LoadActiveThreadId(string id)
         {
